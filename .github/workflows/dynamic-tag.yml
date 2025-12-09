@@ -1,7 +1,7 @@
 name: dynamic-tag
 run-name: dynamic-tagging-workflow
-on: # [push]
-  workflow_dispatch:
+on: [push]
+  # workflow_dispatch:
 env:
   IMAGE_NAME: myapp
 
