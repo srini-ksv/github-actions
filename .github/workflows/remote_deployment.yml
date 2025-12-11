@@ -1,5 +1,5 @@
 name: container deployment CD Pipeline
-run-name: deploy to remote VM
+run-name: remote deployment
 on: [push]
   # workflow_dispatch:
 
@@ -7,7 +7,7 @@ env:
   IMAGE_NAME: myapp
 
 jobs:
-  build_and_push:
+  deploy :
     runs-on: self-hosted
 
     steps:
