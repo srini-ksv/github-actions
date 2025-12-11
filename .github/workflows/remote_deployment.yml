@@ -12,23 +12,23 @@ jobs:
 
     steps:
       - name: Deploy to remote VM
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.TARGET_SERVER }}
-        username: ${{ secrets.TARGET_SSH_USER }}
-        key: ${{ secrets.TARGET_SSH_KEY }}
-        script: |
-          echo "Pulling latest Docker image..."
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.TARGET_SERVER }}
+          username: ${{ secrets.TARGET_SSH_USER }}
+          key: ${{ secrets.TARGET_SSH_KEY }}
+          script: |
+            echo "Pulling latest Docker image..."
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest 
 
-          echo "Stopping old container (if exists)..."
-          docker stop myapp || true
-          docker rm myapp || true
+            echo "Stopping old container (if exists)..."
+            docker stop myapp || true
+            docker rm myapp || true
 
-          echo "Starting new container..."
-          docker run -d \
-            --name myapp \
-            -p 8080:8080 \
-            ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
+            echo "Starting new container..."
+            docker run -d \
+              --name myapp \
+              -p 8080:8080 \
+              ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
 
-          echo "Deployment complete!"
+            echo "Deployment complete!"
