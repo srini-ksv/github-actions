@@ -5,9 +5,9 @@ on:
     branches: [ "main" ]
 
 env:
-  FRONTEND_IMAGE: ${{ github.ref_name }}-frontend:latest
-  BACKEND_IMAGE: ${{ github.ref_name }}-backend:latest
-
+  NGINX: ${{ github.ref_name }}-nginx:latest
+  WEB_IMAGE: ${{ github.ref_name }}-web:latest
+  
 jobs:
   build-push-deploy:
     runs-on: self-hosted
@@ -23,18 +23,18 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # ---------- Build & Push Frontend ----------
-      - name: Build Frontend
-        run: docker build -t $FRONTEND_IMAGE ./3tire-app/frontend
+      - name: Build Nginx
+        run: docker build -t $NGINX ./3tire-app/nginx
 
-      - name: Push Frontend
-        run: docker push $FRONTEND_IMAGE
+      - name: Push Nginx
+        run: docker push $NGINX
 
       # ---------- Build & Push Backend ----------
-      - name: Build Backend
-        run: docker build -t $BACKEND_IMAGE ./3tire-app/backend
+      - name: Build Web
+        run: docker build -t $WEB ./3tire-app/web
 
-      - name: Push Backend
-        run: docker push $BACKEND_IMAGE
+      - name: Push Web
+        run: docker push $WEB
 
       # ---------- Deploy to Server ----------
       - name: Copy docker-compose to Server
@@ -53,7 +53,6 @@ jobs:
           host: ${{ secrets.TARGET_SERVER }}
           username: ${{ secrets.TARGET_SSH_USER }}
           key: ${{ secrets.TARGET_SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/3tier-app
             export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
