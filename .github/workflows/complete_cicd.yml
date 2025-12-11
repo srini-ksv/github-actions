@@ -29,6 +29,14 @@ jobs:
       - name: Push Nginx
         run: docker push $NGINX
 
+      - name: Tag Docker Image
+        run: |
+          docker tag $NGINX:latest ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:latest
+ 
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:latest
+
       # ---------- Build & Push Backend ----------
       - name: Build Web
         run: docker build -t $WEB ./3tire-app/web
