@@ -2,8 +2,8 @@ name: Self-hosted test
  
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "09 17 * * *"
+  # schedule:
+  #  - cron: "09 17 * * *"
  
 jobs:
 
