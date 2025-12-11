@@ -1,7 +1,7 @@
 name: container deployment CD Pipeline
 run-name: remote deployment
-on: [push]
-  # workflow_dispatch:
+on: # [push]
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: myapp
