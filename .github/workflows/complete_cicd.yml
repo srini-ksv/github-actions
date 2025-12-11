@@ -5,9 +5,8 @@ on:
     branches: [ "main" ]
 
 env:
-  IMAGE_NAME: myapp
-  FRONTEND_IMAGE: $IMAGE_NAME-${{ github.ref_name }}-frontend:latest
-  BACKEND_IMAGE: $IMAGE_NAME-${{ github.ref_name }}-backend:latest
+  FRONTEND_IMAGE: ${{ github.ref_name }}-frontend:latest
+  BACKEND_IMAGE: ${{ github.ref_name }}-backend:latest
 
 jobs:
   build-push-deploy:
